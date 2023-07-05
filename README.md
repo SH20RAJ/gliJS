@@ -89,4 +89,3 @@ gli.js supports all modern browsers, including Chrome, Firefox, Safari, and Edge
 
 This library is released under the MIT license. For more details, please see the [LICENSE](LICENSE) file.
 
-```
