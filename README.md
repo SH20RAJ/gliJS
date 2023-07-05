@@ -1,6 +1,6 @@
 # gli.js 🚀
 
-gli.js is a lightweight JavaScript library that provides a simplified alternative to jQuery. It offers a range of useful functions to manipulate the DOM, handle events, perform AJAX requests, and animate elements.
+[gli.js](https://github.com/SH20RAJ/gliJS/tree/main) is a lightweight JavaScript library that provides a simplified alternative to jQuery. It offers a range of useful functions to manipulate the DOM, handle events, perform AJAX requests, and animate elements.
 
 ## Getting Started
 
