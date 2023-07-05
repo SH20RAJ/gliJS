@@ -3,6 +3,14 @@ var gli = (function() {
     return new gli.init(selector);
   };
 
+  gli.ready = function(callback) {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      callback();
+    } else {
+      document.addEventListener('DOMContentLoaded', callback);
+    }
+  };
+
   gli.fn = gli.prototype = {
     constructor: gli,
     init: function(selector) {
@@ -66,9 +74,13 @@ var gli = (function() {
       return this;
     },
     on: function(eventName, selector, handler) {
+      if (typeof selector === 'function') {
+        handler = selector;
+        selector = null;
+      }
       this.e.forEach(function(element) {
         element.addEventListener(eventName, function(event) {
-          var target = event.target.closest(selector);
+          var target = selector ? event.target.closest(selector) : event.target;
           if (target) {
             handler.call(target, event);
           }
@@ -222,3 +234,4 @@ var gli = (function() {
 
   return gli;
 })();
+    
