@@ -7,7 +7,7 @@ gli.js is a lightweight JavaScript library that provides a simplified alternativ
 To use gli.js, include the script file in your HTML document:
 
 ```html
-<script src="gli.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/SH20RAJ/gliJS@main/gli.min.js"></script>
 ```
 
 ## Usage
