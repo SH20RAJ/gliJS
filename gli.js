@@ -1,76 +1,89 @@
-var gli = (function() {
-  var gli = function(selector) {
-    return new GliInit(selector);
+var s = (function() {
+  var s = function(selector) {
+    return new s.fn.init(selector);
   };
 
-  var GliInit = function(selector) {
-    this.e = Array.from(document.querySelectorAll(selector));
+  s.ready = function(callback) {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      callback();
+    } else {
+      document.addEventListener('DOMContentLoaded', callback);
+    }
   };
 
-  GliInit.prototype = {
-    constructor: GliInit,
+  s.fn = s.prototype = {
+    constructor: s,
+    init: function(selector) {
+      this.elements = Array.from(document.querySelectorAll(selector));
+      return this;
+    },
     addClass: function(className) {
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         element.classList.add(className);
       });
       return this;
     },
     removeClass: function(className) {
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         element.classList.remove(className);
       });
       return this;
     },
     toggleClass: function(className) {
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         element.classList.toggle(className);
       });
       return this;
     },
     hide: function() {
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         element.style.display = 'none';
       });
       return this;
     },
     show: function() {
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         element.style.display = '';
       });
       return this;
     },
     text: function(content) {
       if (content !== undefined) {
-        this.e.forEach(function(element) {
+        this.elements.forEach(function(element) {
           element.textContent = content;
         });
         return this;
       } else {
-        return this.e[0].textContent;
+        return this.elements[0].textContent;
       }
     },
     attr: function(attributeName, value) {
       if (value !== undefined) {
-        this.e.forEach(function(element) {
+        this.elements.forEach(function(element) {
           element.setAttribute(attributeName, value);
         });
         return this;
       } else {
-        return this.e[0].getAttribute(attributeName);
+        return this.elements[0].getAttribute(attributeName);
       }
     },
     removeAttr: function(attributeName) {
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         element.removeAttribute(attributeName);
       });
       return this;
+    },
+    hasAttr: function(attributeName) {
+      return this.elements.some(function(element) {
+        return element.hasAttribute(attributeName);
+      });
     },
     on: function(eventName, selector, handler) {
       if (typeof selector === 'function') {
         handler = selector;
         selector = null;
       }
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         element.addEventListener(eventName, function(event) {
           var target = selector ? event.target.closest(selector) : event.target;
           if (target) {
@@ -81,27 +94,28 @@ var gli = (function() {
       return this;
     },
     parent: function() {
-      return gli(this.e.map(function(element) {
+      var parents = this.elements.map(function(element) {
         return element.parentNode;
-      }));
+      });
+      return s(parents);
     },
     children: function() {
       var children = [];
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         children.push.apply(children, element.children);
       });
-      return gli(children);
+      return s(children);
     },
     siblings: function() {
       var siblings = [];
-      this.e.forEach(function(element) {
+      this.elements.forEach(function(element) {
         for (var sibling = element.parentNode.firstChild; sibling; sibling = sibling.nextSibling) {
           if (sibling.nodeType === 1 && sibling !== element) {
             siblings.push(sibling);
           }
         }
       });
-      return gli(siblings);
+      return s(siblings);
     },
     get: function(url, successCallback, errorCallback) {
       var xhr = new XMLHttpRequest();
@@ -147,33 +161,15 @@ var gli = (function() {
       xhr.send(data);
     },
     animate: function(properties, duration, easing, completeCallback) {
-      var elements = this.e;
-      var propertiesArray = [];
-      var start = null;
-      var running = true;
-
-      for (var i = 0; i < properties.length; i++) {
-        var property = properties[i];
-        var target = property[0];
-        var startValue = property[1];
-        var unit = property[2] || 'px';
-        var endValue = property[3];
-
-        propertiesArray.push([target, parseFloat(startValue), unit, endValue]);
-      }
-
       function animate(timestamp) {
         if (start === null) {
           start = timestamp;
         }
-
         var progress = timestamp - start;
         var percentage = progress / duration;
-
         if (typeof easing === 'function') {
           percentage = easing(progress, duration, 0, 1, duration);
         }
-
         if (percentage <= 1) {
           requestAnimationFrame(animate);
         } else {
@@ -184,22 +180,49 @@ var gli = (function() {
               console.error(error);
             }
           }
-          if (loop) {
-            running = false;
-          }
         }
-
-        for (var i = 0; i < propertiesArray.length; i++) {
-          var property = propertiesArray[i];
+        for (var i = 0; i < properties.length; i++) {
+          var property = properties[i];
           var target = property[0];
           var startValue = property[1];
-          var unit = property[2];
-          var endValue = property[3];
-          var currentValue = startValue + percentage * (endValue - startValue);
-          elements.forEach(function(element) {
-            element.style[target] = currentValue + unit;
-          });
+          var unit = property[2] || 'px';
+          var currentValue = (startValue + percentage * (property[3] - startValue)) + unit;
+          target.style[property] = currentValue;
         }
+      }
+
+      var elements = this.elements;
+      var properties = [];
+      var start = null;
+
+      for (var property in properties) {
+        if (properties.hasOwnProperty(property)) {
+          for (var i = 0; i < elements.length; i++) {
+            var computedStyle = getComputedStyle(elements[i]);
+            var initialValue = computedStyle[property];
+            if (initialValue === '' || initialValue === 'auto') {
+              properties[property] = [property, properties[property][0], properties[property][1]];
+            } else {
+              properties[property] = [property, parseFloat(initialValue), properties[property][1]];
+            }
+          }
+          break;
+        }
+      }
+
+      for (var i = 0; i < properties.length; i++) {
+        var property = properties[i];
+        var target = property[0];
+        var startValue = property[1];
+        var unit = property[2] || 'px';
+        var endValue = property[3];
+        properties.push(property);
+        var currentValue = parseFloat(getComputedStyle(elements[i])[target]);
+        if (isNaN(currentValue)) {
+          currentValue = 0;
+        }
+        properties.push(elements[i]);
+        elements.push(elements[i]);
       }
 
       requestAnimationFrame(animate);
@@ -208,7 +231,7 @@ var gli = (function() {
     }
   };
 
-  gli.fn = GliInit.prototype;
+  s.fn.init.prototype = s.fn;
 
-  return gli;
+  return s;
 })();
