@@ -1,6 +1,27 @@
 # gli.js 🚀
 
-[gli.js](https://github.com/SH20RAJ/gliJS/tree/main) is a lightweight JavaScript library that provides a simplified alternative to jQuery. It offers a range of useful functions to manipulate the DOM, handle events, perform AJAX requests, and animate elements.
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SH20RAJ/gliJS/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/SH20RAJ/gliJS.svg)](https://github.com/SH20RAJ/gliJS/stargazers)
+
+gli.js is a lightweight JavaScript library that provides a simplified alternative to jQuery. It offers a range of useful functions to manipulate the DOM, handle events, perform AJAX requests, and animate elements.
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+  - [Selecting Elements](#selecting-elements)
+  - [Manipulating Classes](#manipulating-classes)
+  - [Displaying Elements](#displaying-elements)
+  - [Manipulating Content](#manipulating-content)
+  - [Manipulating Attributes](#manipulating-attributes)
+  - [Handling Events](#handling-events)
+  - [Traversing the DOM](#traversing-the-dom)
+  - [AJAX](#ajax)
+  - [Animation](#animation)
+- [Examples](#examples)
+- [Browser Support](#browser-support)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Getting Started
 
@@ -9,6 +30,8 @@ To use gli.js, include the script file in your HTML document:
 ```html
 <script src="https://cdn.jsdelivr.net/gh/SH20RAJ/gliJS@main/gli.min.js"></script>
 ```
+
+You can also download the [gli.min.js](https://github.com/SH20RAJ/gliJS/blob/main/gli.min.js) file from the repository and host it locally.
 
 ## Usage
 
@@ -60,6 +83,8 @@ var elements = $gli('.selector');
 
 - `animate(properties, duration, easing, completeCallback)`: Animates CSS properties of the selected elements.
 
+For more detailed information on each method and its parameters, please refer to the [API Documentation](API.md).
+
 ## Examples
 
 ### Example 1: Hiding an Element
@@ -103,10 +128,18 @@ $gli('.element').animate([
 });
 ```
 
+You can find more examples and use cases in the [examples directory](https://github.com/SH20RAJ/gliJS/tree/main/examples).
+
 ## Browser Support
 
 gli.js supports all modern browsers, including Chrome, Firefox, Safari, and Edge.
 
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements or fixes you'd like to contribute.
+
+Please read the [Contributing Guidelines](CONTRIBUTING.md) for more details on how to contribute.
+
 ## License
 
-This library is released under the MIT license. For more details, please see the [LICENSE](LICENSE) file.
+This library is released under the [MIT License](LICENSE). See the [LICENSE](LICENSE) file for more details.
