@@ -28,10 +28,10 @@
 To use gli.js, include the script file in your HTML document:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/SH20RAJ/gliJS@main/gli.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/SH20RAJ/gliJS@latest/gli.min.js"></script>
 ```
 
-You can also download the [gli.min.js](https://github.com/SH20RAJ/gliJS/blob/main/gli.min.js) file from the repository and host it locally.
+You can also download the [gli.js](https://github.com/SH20RAJ/gliJS/blob/main/gli.js) file from the repository and host it locally.
 
 ## Usage
 

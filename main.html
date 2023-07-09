@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- JavaScript -->
+  <script src="gli.js"></script>  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gli.js - Lightweight JavaScript Library</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="gli.js is a lightweight JavaScript library for DOM manipulation, event handling, AJAX requests, and animations.">
+  <meta name="keywords" content="gli.js, JavaScript library, DOM manipulation, event handling, AJAX requests, animations">
+  <meta name="author" content="Your Name">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="gli.js - Lightweight JavaScript Library">
+  <meta property="og:description" content="gli.js is a lightweight JavaScript library for DOM manipulation, event handling, AJAX requests, and animations.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sh20raj.github.io/gliJS/">
+  <meta property="og:image" content="https://sh20raj.github.io/gliJS/images/glijs-logo.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="gli.js - Lightweight JavaScript Library">
+  <meta name="twitter:description" content="gli.js is a lightweight JavaScript library for DOM manipulation, event handling, AJAX requests, and animations.">
+  <meta name="twitter:image" content="https://sh20raj.github.io/gliJS/images/glijs-logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">gli.js</h1>
+      <p class="mt-2">A lightweight JavaScript library for DOM manipulation, event handling, AJAX requests, and animations.</p>
+    </div>
+  </header>
+
+  <section class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-4">Getting Started</h2>
+    <p class="mb-4">To use gli.js, include the script file in your HTML:</p>
+    <pre><code class="bg-gray-100 rounded-md p-4">&lt;script src="https://cdn.jsdelivr.net/gh/SH20RAJ/gliJS/gli.min.js"&gt;&lt;/script&gt;</code></pre>
+  </section>
+
+  <section class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-4">Documentation</h2>
+      <p class="mb-4">For detailed information on how to use gli.js, please refer to the <a href="docs/">documentation</a>.</p>
+    </div>
+  </section>
+
+  <section class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-4">Examples</h2>
+    <p class="mb-4">Check out the <a href="examples/">examples</a> directory for usage examples and demos of gli.js.</p>
+  </section>
+
+  <section class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-4">Function Testing</h2>
+      <button id="getData" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Get Data
+      </button>
+      <div id="dataOutput" class="mt-4"></div>
+    </div>
+  </section>
+
+  <section class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-4">Contributing</h2>
+    <p class="mb-4">Contributions are welcome! If you find a bug or want to suggest a new feature, please open an issue or submit a pull request on the <a href="https://github.com/SH20RAJ/gliJS/">GitHub repository</a>.</p>
+  </section>
+
+  <section class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-4">License</h2>
+    <p class="mb-4">gli.js is released under the MIT License. See the <a href="https://github.com/SH20RAJ/gliJS/blob/main/LICENSE">LICENSE</a> file for details.</p>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto px-4">
+      &copy; 2023 Your Name
+    </div>
+  </footer>
+
+
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('getData').addEventListener('click', function() {
+      s.get('https://dummyjson.com/products', function(response) {
+        document.getElementById('dataOutput').textContent = response;
+      });
+    });
+  </script>
+</body>
+</html>
