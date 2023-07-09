@@ -1,22 +1,14 @@
 var gli = (function() {
   var gli = function(selector) {
-    return new gli.init(selector);
+    return new GliInit(selector);
   };
 
-  gli.ready = function(callback) {
-    if (document.readyState === 'interactive' || document.readyState === 'complete') {
-      callback();
-    } else {
-      document.addEventListener('DOMContentLoaded', callback);
-    }
+  var GliInit = function(selector) {
+    this.e = Array.from(document.querySelectorAll(selector));
   };
 
-  gli.fn = gli.prototype = {
-    constructor: gli,
-    init: function(selector) {
-      this.e = Array.from(document.querySelectorAll(selector));
-      return this;
-    },
+  GliInit.prototype = {
+    constructor: GliInit,
     addClass: function(className) {
       this.e.forEach(function(element) {
         element.classList.add(className);
@@ -155,15 +147,33 @@ var gli = (function() {
       xhr.send(data);
     },
     animate: function(properties, duration, easing, completeCallback) {
+      var elements = this.e;
+      var propertiesArray = [];
+      var start = null;
+      var running = true;
+
+      for (var i = 0; i < properties.length; i++) {
+        var property = properties[i];
+        var target = property[0];
+        var startValue = property[1];
+        var unit = property[2] || 'px';
+        var endValue = property[3];
+
+        propertiesArray.push([target, parseFloat(startValue), unit, endValue]);
+      }
+
       function animate(timestamp) {
         if (start === null) {
           start = timestamp;
         }
+
         var progress = timestamp - start;
         var percentage = progress / duration;
+
         if (typeof easing === 'function') {
           percentage = easing(progress, duration, 0, 1, duration);
         }
+
         if (percentage <= 1) {
           requestAnimationFrame(animate);
         } else {
@@ -178,50 +188,18 @@ var gli = (function() {
             running = false;
           }
         }
-        for (var i = 0; i < properties.length; i++) {
-          var property = properties[i];
+
+        for (var i = 0; i < propertiesArray.length; i++) {
+          var property = propertiesArray[i];
           var target = property[0];
           var startValue = property[1];
-          var unit = property[2] || 'px';
-          var currentValue = (startValue + percentage * (property[3] - startValue)) + unit;
-          target.style[property] = currentValue;
+          var unit = property[2];
+          var endValue = property[3];
+          var currentValue = startValue + percentage * (endValue - startValue);
+          elements.forEach(function(element) {
+            element.style[target] = currentValue + unit;
+          });
         }
-      }
-
-      var elements = this.e;
-      var properties = [];
-      var start = null;
-      var running = true;
-      var loop = false;
-
-      for (var property in properties) {
-        if (properties.hasOwnProperty(property)) {
-          for (var i = 0; i < elements.length; i++) {
-            var computedStyle = getComputedStyle(elements[i]);
-            var initialValue = computedStyle[property];
-            if (initialValue === '' || initialValue === 'auto') {
-              properties[property] = [property, properties[property][0], properties[property][1]];
-            } else {
-              properties[property] = [property, parseFloat(initialValue), properties[property][1]];
-            }
-          }
-          break;
-        }
-      }
-
-      for (var i = 0; i < properties.length; i++) {
-        var property = properties[i];
-        var target = property[0];
-        var startValue = property[1];
-        var unit = property[2] || 'px';
-        var endValue = property[3];
-        properties.push(property);
-        var currentValue = parseFloat(getComputedStyle(elements[i])[target]);
-        if (isNaN(currentValue)) {
-          currentValue = 0;
-        }
-        properties.push(elements[i]);
-        elements.push(elements[i]);
       }
 
       requestAnimationFrame(animate);
@@ -230,8 +208,7 @@ var gli = (function() {
     }
   };
 
-  gli.fn.init.prototype = gli.fn;
+  gli.fn = GliInit.prototype;
 
   return gli;
 })();
-    

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>gli.js Documentation</title>
+  <style>
+    /* Add your custom styles here */
+  </style>
+</head>
+<body>
+  <h1>gli.js Documentation</h1>
+  <div id="documentation"></div>
+
+  <script src="gli.js"></script>
+  <script>
+// Select elements using a CSS selector
+s('h1').addClass('highlight');
+
+// Select multiple elements and perform operations on them
+s('.item').addClass('active').show();
+
+// Chain multiple operations
+s('.button')
+  .addClass('disabled')
+  .attr('disabled', 'disabled')
+  .text('Processing...');
+
+// Attach event listeners
+s('.btn').on('click', function() {
+  alert('Button clicked!');
+});
+
+// Make an AJAX request
+s.ajax({
+  method: 'GET',
+  url: 'https://dummyjson.com/products/1',
+  success: function(response) {
+    console.log('AJAX response:', response);
+  },
+  error: function(xhr) {
+    console.error('AJAX error:', xhr);
+  }
+});
+
+  </script>
+</body>
+</html>
