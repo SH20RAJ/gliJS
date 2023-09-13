@@ -1,0 +1,29 @@
+{
+  "name": "glijs",
+  "version": "1.0.0",
+  "description": "**gli.js** is a lightweight JavaScript library that provides a simplified alternative to jQuery. It offers a range of useful functions to manipulate the DOM, handle events, perform AJAX requests, and animate elements. ",
+  "main": "gli.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SH20RAJ/gliJS.git"
+  },
+  "keywords": [
+    "jquery",
+    "javascript",
+    "browser",
+    "library"
+  ],
+  "author": "sh20raj",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SH20RAJ/gliJS/issues"
+  },
+  "homepage": "https://github.com/SH20RAJ/gliJS#readme"
+}
