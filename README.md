@@ -2,6 +2,8 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SH20RAJ/gliJS/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/SH20RAJ/gliJS.svg)](https://github.com/SH20RAJ/gliJS/stargazers)
+[![](https://data.jsdelivr.com/v1/package/gh/sh20raj/gliJS/badge)](https://www.jsdelivr.com/package/gh/sh20raj/gliJS)
+[![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FSH20RAJ%2FgliJS%2F&labelColor=%23697689&countColor=%232ccce4&style=flat)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2FSH20RAJ%2FgliJS%2F)
 
 **gli.js** is a lightweight JavaScript library that provides a simplified alternative to jQuery. It offers a range of useful functions to manipulate the DOM, handle events, perform AJAX requests, and animate elements.
 
